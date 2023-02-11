@@ -1,0 +1,23 @@
+const nodemailer = require("nodemailer");
+
+const sendEmail = async(dest,subject,message)=>{
+    let transporter = nodemailer.createTransport({
+        service:'gmail',
+        auth: {
+          user: process.env.senderemail, // generated ethereal user
+          pass: process.env.senderemailpassword, // generated ethereal password
+        },
+      });
+    
+      // send mail with defined transport object
+      let info = await transporter.sendMail({
+        from: `"saraha app" <${process.env.senderemail}>`, // sender address
+        to: dest, // list of receivers
+        subject: subject, // Subject line
+       
+        html: message, // html body
+      });
+    
+}
+
+module.exports={sendEmail}
